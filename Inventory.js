@@ -30,113 +30,117 @@ var userInput = readline.createInterface({
  */
 var fs = require('fs');
 var readData = fs.readFileSync('inventory.json', 'utf8');
-/**
- * Give user chioces to enter inventory details grains
- */
-console.log("1).Enter details of rice ");
-console.log("2).Enter details of wheats ");
-console.log("3).Enter details of pulses ");
+getChoice();
+function getChoice() {
+    /**
+     * Give user chioces to enter inventory details grains
+     */
 
-/**
- * take choice from user
- */
+    console.log("1).Enter details of rice ");
+    console.log("2).Enter details of wheats ");
+    console.log("3).Enter details of pulses ");
 
-userInput.question("Enter choice = ", (choice) => {
-      input(choice);
-      
-      
-});
-function input(ch){
-    if(ch==1)
+    /**
+     * take choice from user
+     */
+
+    userInput.question("Enter choice = ", (choice) => {
+        input(choice);
+
+
+    });
+}
+function input(ch) {
+    if (ch == 1)           // call to rice() function which gives inventory details of rice
     {
         rice();
-       
+
     }
-    else if(ch==2)
+    else if (ch == 2)    // call to wheats() function which gives inventory details of wheat
     {
         wheats();
-      
+
     }
-    else if(ch==3)
+    else if (ch == 3)  // call to pulses() function which gives inventory details of pulses     
     {
         pulses();
-       
+
     }
-    else{
+    else {
         console.log("!!!! Enter proper choice !!!! ");
-       
-            }
+        getChoice();
+    }
 }
-       
-    
+
+
 
 function rice() {
-    userInput.question("Enter name of rice = ", (name) => {
-        userInput.question("Enter wieght of rice = ", (weight) => {
-            userInput.question("Enter price per kg = ", (price) => {
-                readData = fs.readFileSync("inventory.json", "utf8");
-               var inventory = JSON.parse(readData);
-                inventory.rice.push({
+    userInput.question("Enter name of rice = ", (name) => {             //take rice name from user
+        userInput.question("Enter weight of rice = ", (weight) => {     //take rice weight from user
+            userInput.question("Enter price per kg = ", (price) => {    //take price per kg from user
+                readData = fs.readFileSync("inventory.json", "utf8");   //read json file 
+                var inventory = JSON.parse(readData);                   //parse user data into json object in inventory.json file 
+                inventory.rice.push({                                   //push data in inventory.json file which hold by inventory variable
                     name: name,
                     weight: weight,
                     price: price
 
                 });
-                var writeData = fs.writeFileSync("inventory.json", JSON.stringify(inventory));
+                var writeData = fs.writeFileSync("inventory.json", JSON.stringify(inventory));//write data in inventory.json file
                 console.log("Data write successfully");
 
             });
         });
-  
-       
-     });
-   
+
+
+    });
+
 }
 
 
 function wheats() {
-    userInput.question("Enter name of wheats = ", (name) => {
-        userInput.question("Enter wieght of wheats = ", (weight) => {
-            userInput.question("Enter price per kg = ", (price) => {
-                readData = fs.readFileSync("inventory.json", "utf8");
-                var inventory = JSON.parse(readData);
-                inventory.wheats.push({
+    userInput.question("Enter name of wheats = ", (name) => {            //take wheat name from user
+        userInput.question("Enter wieght of wheats = ", (weight) => {    //take wheat weight from user
+            userInput.question("Enter price per kg = ", (price) => {     //take price per kg from user
+                readData = fs.readFileSync("inventory.json", "utf8");    //read json file
+                var inventory = JSON.parse(readData);                    //parse user data into json object in inventory.json file 
+                inventory.wheats.push({                                  //push data in inventory.json file which hold by inventory variable
                     name: name,
                     weight: weight,
                     price: price
 
                 });
-                var writeData = fs.writeFileSync("inventory.json", JSON.stringify(inventory));
+                var writeData = fs.writeFileSync("inventory.json", JSON.stringify(inventory));//write data in inventory.json file
                 console.log("Data write successfully");
 
             });
         })
-        
+
     });
 }
 
 
 function pulses() {
-    userInput.question("Enter name of pulses = ", (name) => {
-        userInput.question("Enter wieght of pulses = ", (weight) => {
-            userInput.question("Enter price per kg = ", (price) => {
-                readData = fs.readFileSync("inventory.json", "utf8");
-                var inventory = JSON.parse(readData);
-                inventory.pulses.push({
+    userInput.question("Enter name of pulses = ", (name) => {            //take wheat name from user
+        userInput.question("Enter wieght of pulses = ", (weight) => {    //take wheat weight from user
+            userInput.question("Enter price per kg = ", (price) => {     //take price per kg from user
+                readData = fs.readFileSync("inventory.json", "utf8");    //read json file
+                var inventory = JSON.parse(readData);                    //parse user data into json object in inventory.json file 
+                inventory.pulses.push({                                  //push data in inventory.json file which hold by inventory variable
                     name: name,
                     weight: weight,
                     price: price
 
-                    
+
                 });
-                var writeData = fs.writeFileSync("inventory.json", JSON.stringify(inventory));
+                var writeData = fs.writeFileSync("inventory.json", JSON.stringify(inventory));  //write data in inventory.json file
                 console.log("Data write successfully");
 
             });
         });
-       
+
     });
-    
+
 }
 
 

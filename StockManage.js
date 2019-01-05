@@ -26,67 +26,94 @@ var userInput = readline.createInterface({
     output: process.stdout
 });
 /**
- * fs module provides file stream for reading or writing file
+ * fs module provides file stream for reading or writing file.
  */
-var readStock=require('./StockPortfolio.js');
+var readStock = require('./StockPortfolio.js');
 var fs = require('fs');
 var readData = fs.readFileSync('Stock.json', 'utf8');
 /**
- * Give user chioces to enter inventory details grains
+ * Give user chioces to enter stock report.
  */
 getChoice();
-function getChoice(){
-console.log("1).Enter Stock ");
-console.log("2).Display stock ");
-console.log("3).Exit ");
+function getChoice() {
+    console.log("1).Enter Stock ");
+    console.log("2).Display stock ");
+    console.log("3).Exit ");
 
-/**
- * take choice from user
- */
+    /**
+     * take choice from user
+     */
 
-userInput.question("Enter choice = ", (choice) => {
-    input(choice);
+    userInput.question("Enter choice = ", (choice) => {
+        input(choice);
 
 
-});
+    });
 }
-function input(choice){
-    if(choice==1){
+function input(choice) {
+    /**
+     * if choice is 1 then enter stock details
+     */
+    if (choice == 1) {
         stockDetails();
     }
-    else if(choice==2){
+    /**
+     * if choice is 2 then display stock report
+     */
+    else if (choice == 2) {
         display();
     }
-    else{
-        console.log("Enter proper choice");
-        
+    /**
+     * invalid input
+     */
+    else {
+
+        userInput.close();
     }
 
 }
 
-function stockDetails(){
-    userInput.question("Enter stock name = ",(sname)=>{
-        userInput.question("Enter number of shares = ",(shares)=>{
-            userInput.question("Enter share price = ",(price)=>{
-                var total=shares*price;
-                var s=new readStock.Stock(sname,shares,price,total);
-                readData=fs.readFileSync("Stock.json","utf8");
-                writeData=JSON.parse(readData);
+function stockDetails() {
+    /**
+     * take stock detials from user
+     */
+    userInput.question("Enter stock name = ", (sname) => {
+        userInput.question("Enter number of shares = ", (shares) => {
+            userInput.question("Enter share price = ", (price) => {
+                var total = shares * price;
+                /**
+                 * stock details pass to stock class
+                 */
+                var s = new readStock.Stock(sname, shares, price, total);
+                /**
+                 * read stock.json file from user 
+                 */
+                readData = fs.readFileSync("Stock.json", "utf8");
+                /**
+                 * parse stock details to object in json file
+                 */
+                writeData = JSON.parse(readData);
                 writeData.shares.push(s);
-
-                var write=fs.writeFileSync("Stock.json",JSON.stringify(writeData));
+                /**
+                 * write stock details in json file
+                 */
+                var write = fs.writeFileSync("Stock.json", JSON.stringify(writeData));
                 console.log("Successfully write stock data");
                 userInput.close();
+
             });
         });
     });
 
 }
-function display(){
-    var read=fs.readFileSync('Stock.json');
-    var stockReport=JSON.parse(read);
-    console.log(stockReport);
+function display() {
+    /**
+     * display stock report to user
+     */
+    var read = fs.readFileSync('Stock.json');
+    var stockDetails = JSON.parse(read);
+    console.log(stockDetails);
     getChoice();
-    
+
 
 }
