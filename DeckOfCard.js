@@ -152,6 +152,7 @@ class Player extends Deck {
 const objPlayer = new Player();
 /**
  * call method of derived class which hold object variable of parent class 
- * Here we use object orinted property i.e.inheritance 
+ * Here we use object orinted property i.e.inheritance and function chaining also
+ * 
  */
 objPlayer.card(dek);

@@ -82,7 +82,7 @@ function stockDetails() {
             userInput.question("Enter share price = ", (price) => {
                 var total = shares * price;
                 /**
-                 * stock details pass to stock class
+                 * Company details pass to  class
                  */
                 var s = new readStock.Stock(sname, shares, price, total);
                 /**

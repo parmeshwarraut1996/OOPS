@@ -1,1 +1,10 @@
-{"shares":[{},{"stock":"hero","shares":"50","price":"10000","total":500000},{"stock":"hero","shares":"100","price":"20000","total":2000000},{"stock":"honda","shares":"10","price":"20000","total":200000}]}
+{
+    "shares": [
+        {
+            "stock": "as",
+            "shares": "5",
+            "price": "1111",
+            "total": 5555
+        }
+    ]
+}
