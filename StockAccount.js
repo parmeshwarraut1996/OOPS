@@ -26,162 +26,371 @@ var userInput = readline.createInterface({
     output: process.stdout
 });
 
-var objCustomer = require('./Customer.js');
-var objCompany = require('./Company.js');
+//var objCustomer = require('./Customer.js');
+//var objCompany = require('./Company.js');
 var fs = require('fs');
-var companyData = fs.readFileSync('Company.json', 'utf8');
-var customerData = fs.readFileSync('Customer.json', 'utf8');
-var objCust = new objCustomer.Customer();
-var objComp = new objCompany.Company();
+var companyData = fs.readFileSync('./company.json', 'utf8');
+var customerData = fs.readFileSync('./userdetail.json', 'utf8');
+//var objCust = new objCustomer.Customer();
+//var objComp = new objCompany.Company();
 
-class StockAccount {
-    // constructor(shareName, noOfShares, price) {
-    //     this.shareName = shareName;
-    //     this.noOfShares = noOfShares;
-    //     this.price = price;
-    // }
-
-    getChoice() {
-        console.log("!!!! Commercial Data Processing !!!!");
-        console.log("1). Customer Operation ");
-        console.log("2). Company Operation ");
-        console.log("3). Exit");
-
-        userInput.question("Enter your choice = \n", (choice) => {
-            objStock.input(choice)
-        });
+class Customer {
+    constructor(uname, shares, amount) {
+        this.uname = uname;
+        this.shares = shares;
+        this.amount = amount;
     }
+   
+}
 
-    input(choice) {
-        if (choice == 1) {
-            console.log("1). New Customer  ");
-            console.log("2). Registered ");
-            console.log("3). Exit ");
-            userInput.question("Enter your choice = ", (customerChoice) => {
-                objStock.customerChoiceInput(customerChoice);
-            });
 
-        }
-        else if (choice == 2) {
 
-            console.log('Company operations\n');
-            console.log('1). Add company');
-            console.log('2). List of comapnies');
-            userInput.question('Enter your choice = ', (companyChoice) => {
-                objStock.companyOperation(companyChoice);
+
+class StockAccount extends Customer{
+ input() {
+    console.log('1.comapany oprerations :-  ');
+    console.log('2. user operations  ');
+    userInput.question('enter your choice', (a) => {
+        objStock.operation(a);
+    })
+}
+    operation(a) {
+        if (a == 1) {
+            console.log('company operations\n');
+            console.log('1. add company');
+            console.log('2. list of comapnies');
+            userInput.question('enter your choice', (coop) => {
+               objStock.companyOperation(coop);
             });
 
 
+
+
+        }
+
+        if (a == 2) {
+            console.log('user oprations\n');
+            console.log('1. add user :');
+            console.log('2 sign in:');
+            //console.log('3 sell shares:');
+            console.log('4. search user details\n:  ');
+            userInput.question('enter your choice:-  ', (userop) => {
+               objStock.userOperation(userop);
+            })
+
+
+
         }
     }
-    companyOperation(companyChoice) {
-        if (companyChoice == 1) {
-            userInput.question("Enter company name = ", (cname) => {
-                userInput.question("Enter number of shares = ", (shares) => {
-                    userInput.question("Enter price of each share = ", (sprice) => {
-                        var writeData = new objCompany.Company(cname, shares, sprice);
-                        var detail = JSON.parse(companyData);
-                        detail.Company.push(writeData);
-                        fs.writeFileSync('Company.json', JSON.stringify(detail));
+    companyOperation(coop) {
+        if (coop == 1) {
+            userInput.question('enter company name:-  ', (cname) => {
+                userInput.question('enter number of shares:-  ', (shares) => {
+                    userInput.question('enter price of each share:-  ', (sprice) => {
+                        var company = new companyobj.Company(cname, shares, sprice);
+                        let detail = JSON.parse(companydata);
+                        detail.company.push(company);
+                        fs.writeFileSync('company.json', JSON.stringify(detail));
+
+
+
+                        console.log("success");
+
                         console.log(detail);
-                        console.log('Successfully Updated \n')
-
+                        console.log('updated succesfully\n')
+                        objStock.input();
 
                     });
                 });
             });
         }
-        else if (companyChoice == 2) {
-            let detail = JSON.parse(fs.readFileSync('./Company.json'));
-            console.log("List of Companies = ");
+        if (coop == 2) {
+            let detail = JSON.parse(fs.readFileSync('./company.json'));
+            console.log('list');
             console.log(detail);
-            console.log("\n");
-
-            objStock.getChoice();
+           objStock.input();
         }
-        else {
-            console.log("!!!!Enter proper choice!!!!");
-
-        }
-
     }
-    customerChoiceInput(customerChoice) {
-        if (customerChoice == 1) {
-            userInput.question("Enter customer id = ", (id) => {
-                userInput.question("Enter customer Name = ", (customerName) => {
-                    objCust.add(id, customerName);
+    userOperation(userop) {
+        /**
+         * add new user.
+         */
+        if (userop == 1) {
+            userInput.question('enter user name:-  ', (uname) => {
+                userInput.question('enter number of shares:-  ', (ushares) => {
+                    userInput.question('enter amount of user:-  ', (amount) => {
+                        var user = new userobj.User(uname, ushares, amount);
+                        let detail = JSON.parse(userdata);
+                        detail.user.push(user);
+                        fs.writeFileSync('user.json', JSON.stringify(detail));
 
+
+
+                        console.log("success");
+
+                        //console.log(detail);
+                        console.log('updated succesfully\n')
+                       objStock.input();
+
+                    });
                 });
-
             });
         }
-        if (customerChoice == 2) {
-            userInput.question("Enter id = ", (custId) => {
-                objCust.check(custId);
-            });
-        }
-    }
-
-
-    buyOrsell(id) {
-        console.log("1). Buy shares  ");
-        console.log("2) .Sell shares ");
-        console.log("3). Exit ");
-        userInput.question("Enter your choice = ", (ch) => {
-            objStock.buyInput(ch);
-        });
-    }
-    buyInput(ch) {
-        if (ch == 1) {
-            objStock.buy(id);
-        }
-        else if (ch == 2) {
-            objStock.sell(id);
-        }
-        else {
-            console.log("Enter proper choice ");
-
-        }
-
-
-    }
-    buy(id) {
-        var count = 0;
-        var readData = JSON.parse(fs.readFileSync('Comapny.json'));
-        console.log(readData);
-        userInput.question("Enter company name = ", (companyName) => {
-            userInput.question("Enter numbers of shares to buy = ", (noOfShares) => {
-                var writedata = JSON.parse(companyData);
-                var users = writedata.customer;
+        /**
+         * see details of a particular user.
+         */
+        if (userop == 4) {
+            userInput.question('enter user name to see details:-   ', (uname) => {
+                var json = JSON.parse(userdata);
+                var users = json.user;
                 users.forEach(function (user) {
-                    if (companyName == user.companyName && noOfShares > numOfShares) {
-                        objCust.buyShares(companyName, noOfShares, id);
-                        count++;
+                    if (uname == user.uname) {
+                        console.log(user);
+                        // count ++;
+                        return;
+                    } else {
+                        console.log('no record found');
 
                     }
-
                 });
-                if (count == 0) {
-                    console.log(" No record found");
+            });
+        }
+        /**
+         * for login
+         */
+        if (userop == 2) {
+            var found = 0;
+            userInput.question('enter username to login:-  ', (uname) => {
+                var json = JSON.parse(userdata);
+                var users = json.user;
+                users.forEach(function (user) {
+                    if (uname == user.uname) {
+                        console.log(user);
+                        objStock.buyosell(uname);
+                        found++;
 
 
-                }
+                    }
+                });
+                if (found == 0)
+                    console.log('no record found');
+                console.log();
+                //input();
+                return null;
 
 
             });
+
+
+        }
+        /**
+         * company details display.
+         */
+        if (userop == 3) {
+            let detail = JSON.parse(fs.readFileSync('./company.json'));
+            console.log('list');
+            console.log(detail);
+            userInput.question('enter name of company to buy shares:-  ', (cname) => {
+                userInput.question('enter number of shares to buy:-  ', (snumber) => {
+                   objStock.sellshare(cname, snumber);
+                });
+            });
+
+        }
+
+    }
+
+    buyosell(uname) {
+        console.log('1.buy share  ');
+        console.log('2.sell share');
+        userInput.question('enter your choice:-  ', (bs) => {
+           objStock.way(bs, uname);
+        })
+    }
+
+    way(bs, uname) {
+        if (bs == 1) {
+           objStock.buy(uname);
+        }
+        if (bs == 2) {
+           objStock.sell(uname);
+        }
+    }
+
+    buy(uname) {
+        var foundc = 0;
+        let det = JSON.parse(fs.readFileSync('./company.json'));
+        console.log('list');
+        console.log(det);
+        userInput.question('enter name of company to buy shares:-  ', (cname) => {
+            userInput.question('enter number of shares to buy:-  ', (snumber) => {
+                var json = JSON.parse(companydata);
+                var users = json.company;
+                users.forEach(function (user) {
+                    if (cname == user.Companyname && snumber <= user.numberofshares) {
+
+                        objStock.buyshare(cname, snumber, uname);
+                        foundc++
+                    }
+                });
+                if (foundc == 0) {
+                    console.log('enter valid company name or shares to buy');
+                }
+            });
+        });
+    }
+    buyshare(cname, snumber, uname) {
+        var number = parseInt(snumber);
+        var json = JSON.parse(companydata);
+        var users = json.company;
+        users.forEach(function (user) {
+
+
+
+            if (cname == user.Companyname) {
+                var shareu = Number(user.numberofshares)
+                var share = shareu - snumber;
+                user.numberofshares = share;
+                this.value = parseInt(user.priceofshare);
+            }
         });
 
+        fs.writeFileSync('company.json', JSON.stringify(json));
+        var newdata = fs.readFileSync('company.json', 'utf8')
+        let det = JSON.parse(newdata);
+        console.log(det);
+        console.log(' updated');
+
+        console.log();
+
+
+
+
+
+        var json = JSON.parse(userdata);
+        var users = json.user;
+        users.forEach(function (user) {
+            if (uname == user.uname) {
+                var share = parseInt(user.shares);
+                var sharep = this.value;
+                var add = share + number;
+                user.shares = add;
+                var abc = sharep * number
+                var usera = Number(user.amount);
+                var uamo = usera - abc;
+                user.amount = uamo;
+
+            }
+        });
+        fs.writeFileSync('userdetail.json', JSON.stringify(json));
+        var newdata = fs.readFileSync('userdetail.json', 'utf8')
+        let detail = JSON.parse(newdata);
+        console.log(detail);
+        console.log(' updated');
+        console.log();
+        objStock.input();
+
 
     }
-    shell(id){
+
+    sell(uname) {
+        //var number=parseInt(snumber);
+        var found = 0;
+        var foundc = 0;
+        let detail = JSON.parse(fs.readFileSync('./company.json'));
+        console.log('list');
+        console.log(detail);
+        userInput.question('enter name of company to sell shares:-  ', (cname) => {
+            userInput.question('enter number of shares to sell-  ', (snumber) => {
+                userInput.question('enter price of each share', (eprice) => {
+                    var json = JSON.parse(userdata);
+                    var users = json.user;
+                    users.forEach(function (user) {
+                        if (uname == user.uname && user.share <= snumber) {
+                            found++;
+                        }
+
+                    });
+                    var json = JSON.parse(companydata);
+                    var users = json.company;
+                    users.forEach(function (user) {
+                        if (user.Companyname = cname);
+                        foundc++;
+
+                    });
+                    if (found === 0 && foundc === 0) {
+                        console.log('enter valid data');
+
+                    } else {
+                        objStock.sellshare(cname, snumber, uname, eprice);
+
+                    }
+                });
+            });
+        });
+    } 
+
+
+    sellshare(cname, snumber, uname, eprice) {
+        var price = parseInt(eprice);
+        var number = parseInt(snumber);
+        var add = number * price;
+        var value = parseInt(add);
+        var json = JSON.parse(companydata);
+        var users = json.company;
+        users.forEach(function (user, index) {
+
+
+
+            if (cname == user.Companyname) {
+                var ns = parseInt(user.numberofshares);
+                var add = ns + number;
+                user.numberofshares = add;
+                var value = user.priceofshare;
+                fs.writeFileSync('company.json', JSON.stringify(json));
+                var newdata = fs.readFileSync('company.json', 'utf8')
+                let detail = JSON.parse(newdata);
+                console.log(detail);
+                console.log(' updated');
+
+                console.log();
+            }
+        });
+        var json = JSON.parse(userdata);
+        var users = json.user;
+        users.forEach(function (user, index) {
+            if (uname == user.uname) {
+                let shareofuser = Number(user.share);
+                let minus = shareofuser - snumber;
+                user.shares = minus;
+                var uamo = parseInt(user.amount);
+                var amou = add + uamo;
+                user.amount = amou;
+
+            }
+        });
+        fs.writeFileSync('userdetail.json', JSON.stringify(json));
+        var newdata = fs.readFileSync('userdetail.json', 'utf8')
+        let detail = JSON.parse(newdata);
+        console.log(detail);
+        console.log();
+        objStock.input();
+
 
     }
+
+
+
+
+
 }
-//var objStock = new StockAccount();
-//objStock.getChoice();
-module.exports = {
+var objStock=new StockAccount();
+objStock.input();
+module.exports={
     StockAccount
 }
+
+
 
 
 
