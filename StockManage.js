@@ -1,16 +1,16 @@
 /******************************************************************************
- *  Execution       :   1. default node         cmd> node Inventory.js 
- *                      2. if nodemon installed cmd> nodemon Inventory.js
+ *  Execution       :   1. default node         cmd> node StockManage.js 
+ *                      2. if nodemon installed cmd> nodemon StockManage.js
  * 
- *  Purpose         : Create a JSON file having Inventory Details for Rice, Pulses and Wheats ith
- *                    properties name, weight, price per kg.
+ *  Purpose         : Write a program to read in Stock Names, Number of Share, Share Price.
+                      Print a Stock Report with total value of each Stock and the total value of Stock.
  * 
  *  @description    
  * 
- *  @file           : Inventory.js
- *  @overview       : Inventory module to create a JSON file having Inventory Details for Rice, Pulses and Wheats ith
- *                    properties name, weight, price per kg.
- *  @module         : Inventory - This is optional if expeclictly its an npm or local package
+ *  @file           : StockManage.js
+ *  @overview       : StockManage module to Write a program to read in Stock Names, Number of Share, Share Price.
+                      Print a Stock Report with total value of each Stock and the total value of Stock.
+ *  @module         : StockManage - This is optional if expeclictly its an npm or local package
  *  @author         : Parmeshwar Raut
  *  @version        : 1.0
  *  @since          : 04-01-2019

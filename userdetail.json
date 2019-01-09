@@ -1,3 +1,29 @@
 {
-    "user": []
+    "user": [
+        {
+            "uname": "ganesh",
+            "shares": 6,
+            "amount": 0
+        },
+        {
+            "uname": "bob",
+            "shares": 12,
+            "amount": 1200
+        },
+        {
+            "uname": "alice",
+            "shares": "5",
+            "amount": "1000"
+        },
+        {
+            "uname": "amol",
+            "shares": null,
+            "amount": -1000
+        },
+        {
+            "uname": "shubham",
+            "shares": 7,
+            "amount": -1000
+        }
+    ]
 }

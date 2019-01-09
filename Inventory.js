@@ -78,12 +78,15 @@ function rice() {
     userInput.question("Enter name of rice = ", (name) => {             //take rice name from user
         userInput.question("Enter weight of rice = ", (weight) => {     //take rice weight from user
             userInput.question("Enter price per kg = ", (price) => {    //take price per kg from user
+                var total=weight*price;
                 readData = fs.readFileSync("inventory.json", "utf8");   //read json file 
                 var inventory = JSON.parse(readData);                   //parse user data into json object in inventory.json file 
                 inventory.rice.push({                                   //push data in inventory.json file which hold by inventory variable
                     name: name,
                     weight: weight,
-                    price: price
+                    price: price,
+                    total:total
+
 
                 });
                 var writeData = fs.writeFileSync("inventory.json", JSON.stringify(inventory));//write data in inventory.json file
@@ -102,13 +105,14 @@ function wheats() {
     userInput.question("Enter name of wheats = ", (name) => {            //take wheat name from user
         userInput.question("Enter wieght of wheats = ", (weight) => {    //take wheat weight from user
             userInput.question("Enter price per kg = ", (price) => {     //take price per kg from user
+                var total = weight * price;
                 readData = fs.readFileSync("inventory.json", "utf8");    //read json file
                 var inventory = JSON.parse(readData);                    //parse user data into json object in inventory.json file 
                 inventory.wheats.push({                                  //push data in inventory.json file which hold by inventory variable
                     name: name,
                     weight: weight,
-                    price: price
-
+                    price: price,
+                    total:total
                 });
                 var writeData = fs.writeFileSync("inventory.json", JSON.stringify(inventory));//write data in inventory.json file
                 console.log("Data write successfully");
@@ -124,12 +128,14 @@ function pulses() {
     userInput.question("Enter name of pulses = ", (name) => {            //take wheat name from user
         userInput.question("Enter wieght of pulses = ", (weight) => {    //take wheat weight from user
             userInput.question("Enter price per kg = ", (price) => {     //take price per kg from user
+                var total = weight * price;
                 readData = fs.readFileSync("inventory.json", "utf8");    //read json file
                 var inventory = JSON.parse(readData);                    //parse user data into json object in inventory.json file 
                 inventory.pulses.push({                                  //push data in inventory.json file which hold by inventory variable
                     name: name,
                     weight: weight,
-                    price: price
+                    price: price,
+                    total:total
 
 
                 });

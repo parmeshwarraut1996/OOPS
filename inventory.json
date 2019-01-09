@@ -14,6 +14,17 @@
             "name": "as",
             "weight": "10",
             "price": "2"
+        },
+        {
+            "name": "basmati",
+            "weight": "5",
+            "price": "40"
+        },
+        {
+            "name": "kolam",
+            "weight": "5",
+            "price": "40",
+            "total": 200
         }
     ],
     "wheats": [],

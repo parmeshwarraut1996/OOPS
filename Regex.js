@@ -57,7 +57,7 @@ function compare(name, fullName, mobileNumber) {
 /**
  * validation of user input
  */
-    if (name.match(/^[A-Za-z]+$/) && fullName.match(/^[A-Za-z]+$/), mobileNumber.match(/[789]{1}[0-9]{9}/)) {
+    if (name.match(/^[a-zA-z\s]/) && fullName.match(/^[A-Za-z]+$/), mobileNumber.match(/[789]{1}[0-9]{9}/)) {
 /**
  *  replace name,full name, Mobile#, and Date with proper value.
  */
@@ -67,5 +67,9 @@ function compare(name, fullName, mobileNumber) {
         message = message.replace(pattern4, day1);
         console.log(message);   //display message to user
 
+    }
+    else{
+    console.log("Enter valid data");
+    
     }
 }
