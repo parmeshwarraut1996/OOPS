@@ -86,10 +86,10 @@ class StockAccount extends User {
              * if choice==2 then perform user opeartion 
              */
             console.log('User oprations\n');
-            console.log('1). Add user  ');
-            console.log('2). Sign in  ');
+            console.log('1). New user ');
+            console.log('2). Registered user ');
             console.log('3). Search user details \n  ');
-            userInput.question('enter your choice:-  ', (userop) => {
+            userInput.question('Enter your choice  =  ', (userop) => {
                 objStock.userOperation(userop);
             })
 
@@ -164,7 +164,7 @@ class StockAccount extends User {
                         fs.writeFileSync('userdetail.json', JSON.stringify(detail));
                         console.log("Successfully write user data ");
                         console.log('Updated succesfully\n');
-                        objStock.input();
+                        objStock.input();//call main menu
 
                     });
                 });
@@ -180,23 +180,29 @@ class StockAccount extends User {
                 var json = JSON.parse(customerData);
                 var users = json.user;
                 users.forEach(function (user) {
+                    /**
+                     * check authentication that user is exist or not 
+                     */
                     if (uname == user.uname) {
                         console.log(uname);
                         return;
                     }
                     else {
-                        console.log('No record found');
+                        console.log('No user record found');
 
                     }
                 });
             });
         }
         /**
-         * User login
+         * if choice is 2 check enter user login phase 
          */
         if (userop == 2) {
             var found = 0;
             userInput.question('Enter username to login =  ', (uname) => {
+                /**
+                 * read userdetail.json file 
+                 */
                 var customerData = fs.readFileSync('./userdetail.json', 'utf8');
                 var json = JSON.parse(customerData);
                 var users = json.user;
@@ -204,6 +210,9 @@ class StockAccount extends User {
                     if (uname == user.uname) {
                         console.log(user);
                         objStock.buyosell(uname);
+                        /**
+                         * if record if found then count will be increment
+                         */
                         found++;
                     }
                 });
@@ -211,7 +220,7 @@ class StockAccount extends User {
                  * if User not found
                  */
                 if (found == 0) {
-                    console.log('no record found');
+                    console.log('No user record found');
                     return null;
                 }
 
@@ -520,6 +529,7 @@ var userobj = new User();
 /**
  * export StockAccount class 
  */
+
 module.exports = {
     StockAccount
 }
