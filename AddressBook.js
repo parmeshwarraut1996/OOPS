@@ -50,13 +50,13 @@ class AddressBook {
     }
 
     input() {
-        console.log("1).Add person in file");
-        console.log("2).Update person detail");
+        console.log("1).Add person ");
+        console.log("2).Update person details");
         console.log("3).Remove person from file");
         console.log("4).Search person in file");
         console.log("5).Display person");
         console.log("6).Exit");
-        userInput.question("Enter your choice = ", (choice) => {
+        userInput.question("Enter your choice =  ", (choice) => {
             objAdd.getChoice(choice);
         });
 
@@ -94,7 +94,7 @@ class AddressBook {
                                              * write person data in AddressBook.json file
                                              */
                                             fs.writeFileSync('AddressBook.json', JSON.stringify(detail));
-                                            console.log("Successfully write data");
+                                            console.log(" Successfully written data ");
                                             console.log(detail);
                                             console.log('Succesfully Updated \n')
                                             objAdd.input();//call user choice
